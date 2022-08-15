@@ -15,26 +15,35 @@ class M3U8Scrapper:
     def __init__(self,url):
         self.url = url # url of the m3u8 file  
          
-    def getListSpecial(self):
-        name_series = input('Dizi ismi(küçük ve boşluklarda "-" işaret kullanarak): ')
-        season_counter = int(input('Sezon sayısı: '))
-        counter = 1
-        epis = []
-        
-        while counter != season_counter+1:
-            episode_counter = int(input(f'{counter}. Sezon Bölüm sayısı: '))
-            counter_epi = 1
-            for episode in range(1,episode_counter+1):
-                episode_name = f'{filename} {counter}. Sezon {episode}. Bölüm'
-                episode_link = f"https://www.dizigom1.com/{name_series}-{counter}-sezon-{counter_epi}-bolum/"
-                epis.append(episode_name)
-                links.append(episode_link)
-                counter_epi += 1
-            counter += 1
+@Client.on_message(filters.command('start'))
+async def start(bot, message):
+    await message.reply("Dizi ismi(küçük ve boşluklarda "-" işaret kullanarak: ", reply_markup=ForceReply(True))
+
+@Client.on_message(filters.reply)
+async def season_number(bot, message):
+    season_counter = await message.reply("Hangi Sezon: ", reply_markup=ForceReply(True))
+    counter = 1
+    epis = []
+     
+@Client.on_message(filters.reply)
+async def season_bolumler(bot, message):   
+    while counter != season_counter+1:
+        episode_counter = await message.reply("f'{counter}. Sezon Bölüm sayısı: ", reply_markup=ForceReply(True))
+        counter_epi = 1
+
+@Client.on_message(filters.reply)
+async def mmagneto(bot, message):
+    for episode in range(1,episode_counter+1):
+        episode_name = f'{filename} {counter}. Sezon {episode}. Bölüm'
+        episode_link = f"https://www.dizigom1.com/{name_series}-{counter}-sezon-{counter_epi}-bolum/"
+        epis.append(episode_name)
+        links.append(episode_link)
+        counter_epi += 1
+        counter += 1
             
-        with open(f"{filename}_Links.txt", "a", encoding="utf-8") as f:
-            for link in links:
-                f.write(link + "\n")
+    with open(f"{filename}_Links.txt", "a", encoding="utf-8") as f:
+        for link in links:
+            f.write(link + "\n")
                 
         with open(f"{filename}_Names.txt", "a", encoding="utf-8") as f:
             for name in epis:
