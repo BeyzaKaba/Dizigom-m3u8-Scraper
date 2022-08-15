@@ -119,7 +119,7 @@ async def mmagneto(bot, message):
             links.append(epi.get("href"))            
             epi_names = episode.find("h2", {"class" : "entry-title"})
             epis.append(epi_names.text)
-        await bot.send_message(str(epis,links))        
+        bot.send_message(str(epis,links))        
         return links,epis
             
     def getM3U8Links(self, link_list, epi_list):
