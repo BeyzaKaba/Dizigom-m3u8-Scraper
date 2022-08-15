@@ -6,6 +6,5 @@ hachoir
 Pillow
 hyper
 ffmpeg-python
-subprocess
 json
 bs4
