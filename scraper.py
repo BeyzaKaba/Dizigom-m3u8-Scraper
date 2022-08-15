@@ -14,7 +14,7 @@ APP_ID = int(environ.get("APP_ID"))
 API_HASH = environ.get("API_HASH")
 BOT_TOKEN = environ.get("BOT_TOKEN")
 
-bot = pyrogram.Client(
+bot = Client(
     'm3u8bot',
     bot_token=BOT_TOKEN,
     api_id=APP_ID,
