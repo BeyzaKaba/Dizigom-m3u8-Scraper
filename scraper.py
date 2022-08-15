@@ -32,18 +32,18 @@ class M3U8Scrapper:
          
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
-    name_series = await message.reply("Dizi ismi(küçük ve boşluklarda "-" işaret kullanarak: ", reply_markup=ForceReply(True))
+    name_series = await bot.send_message(chat_id, "Dizi ismi(küçük ve boşluklarda "-" işaret kullanarak: ", reply_markup=ForceReply(True))
 
 @Client.on_message(filters.reply)
 async def season_number(bot, message):
-    season_counter = await message.reply("Hangi Sezon: ", reply_markup=ForceReply(True))
+    season_counter = await bot.send_message(chat_id, "Hangi Sezon: ", reply_markup=ForceReply(True))
     counter = 1
     epis = []
      
 @Client.on_message(filters.reply)
 async def season_bolumler(bot, message):   
     while counter != season_counter+1:
-        episode_counter = await message.reply("f'{counter}. Sezon Bölüm sayısı: ", reply_markup=ForceReply(True))
+        episode_counter = await bot.send_message(chat_id, "f'{counter}. Sezon Bölüm sayısı: ", reply_markup=ForceReply(True))
         counter_epi = 1
 
 @Client.on_message(filters.reply)
