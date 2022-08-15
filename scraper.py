@@ -26,16 +26,10 @@ episode_m3u8_links = []
 failed_links = []
 episode_names = []
     
-class M3U8Scrapper:
-    def __init__(self,url):
-        self.url = url # url of the m3u8 file  
-         
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
-    try:
-        name_series = await bot.send_message(chat_id, "Dizi ismi(küçük ve boşluklarda "-" işaret kullanarak: ", reply_markup=ForceReply(True))
-    except Exception as e:
-        print(e)
+    self.url = url # url of the m3u8 file       
+    name_series = await bot.send_message(chat_id, "Dizi ismi(küçük ve boşluklarda "-" işaret kullanarak: ", reply_markup=ForceReply(True))
 
 @Client.on_message(filters.reply)
 async def season_number(bot, message):
