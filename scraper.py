@@ -162,7 +162,7 @@ async def mmagneto(bot, message):
                 
             episode_m3u8_links.append(episode_link)
             
-            message= await bot.send_message(chat_id, f"Çekilen Bölüm: {episode_name}") 
+            message= bot.send_message(chat_id, f"Çekilen Bölüm: {episode_name}") 
             if i == len(link_list)-1:
                 break
             else:
@@ -170,9 +170,9 @@ async def mmagneto(bot, message):
                 
         os.system("cls")
         if not failed_links:
-            await bot.send_message(chat_id, f"İşlem tamamlandı.\nÇekilen Dizi: {filename}\nBölüm sayısı: {len(episode_m3u8_links)}\nHatalı Link(ler): Yok")
+            bot.send_message(chat_id, f"İşlem tamamlandı.\nÇekilen Dizi: {filename}\nBölüm sayısı: {len(episode_m3u8_links)}\nHatalı Link(ler): Yok")
         else:
-            await bot.send_message(chat_id, f"İşlem tamamlandı.\nÇekilen Dizi: {filename}\nBölüm sayısı: {len(episode_m3u8_links)}\nHatalı Link(ler): {failed_links}") 
+            bot.send_message(chat_id, f"İşlem tamamlandı.\nÇekilen Dizi: {filename}\nBölüm sayısı: {len(episode_m3u8_links)}\nHatalı Link(ler): {failed_links}") 
         return episode_m3u8_links
 
     def getVideos(self, series_name): 
