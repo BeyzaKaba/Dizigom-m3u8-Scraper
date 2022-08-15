@@ -32,7 +32,10 @@ class M3U8Scrapper:
          
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
-    name_series = await bot.send_message(chat_id, "Dizi ismi(küçük ve boşluklarda "-" işaret kullanarak: ", reply_markup=ForceReply(True))
+    try:
+        name_series = await bot.send_message(chat_id, "Dizi ismi(küçük ve boşluklarda "-" işaret kullanarak: ", reply_markup=ForceReply(True))
+    except Exception as e:
+        print(e)
 
 @Client.on_message(filters.reply)
 async def season_number(bot, message):
