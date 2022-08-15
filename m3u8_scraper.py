@@ -5,6 +5,21 @@ from bs4 import BeautifulSoup
 import json
 import os
 import subprocess
+from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
+import os, requests, json
+import re, time, asyncio
+
+APP_ID = int(environ.get("APP_ID"))
+API_HASH = environ.get("API_HASH")
+BOT_TOKEN = environ.get("BOT_TOKEN")
+
+bot = pyrogram.Client(
+    'm3u8bot',
+    bot_token=BOT_TOKEN,
+    api_id=APP_ID,
+    api_hash=API_HASH,
+    )
 
 links = []
 episode_m3u8_links = []
@@ -17,7 +32,7 @@ class M3U8Scrapper:
          
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
-    await message.reply("Dizi ismi(küçük ve boşluklarda "-" işaret kullanarak: ", reply_markup=ForceReply(True))
+    name_series = await message.reply("Dizi ismi(küçük ve boşluklarda "-" işaret kullanarak: ", reply_markup=ForceReply(True))
 
 @Client.on_message(filters.reply)
 async def season_number(bot, message):
@@ -104,7 +119,7 @@ async def mmagneto(bot, message):
             links.append(epi.get("href"))            
             epi_names = episode.find("h2", {"class" : "entry-title"})
             epis.append(epi_names.text)
-        print(epis,links)        
+        await bot.send_message(str(epis,links))        
         return links,epis
             
     def getM3U8Links(self, link_list, epi_list):
@@ -172,24 +187,4 @@ async def mmagneto(bot, message):
             output = f"{folder_name}{episode_name}"
             subprocess.run(['yt-dlp',episode_link,'-o',output])
 
-
-
-if __name__ == "__main__":
-    
-    filename = input(bcolors.OKGREEN + "Dosya Adı: " + bcolors.ENDC)
-    linkofseries = input(f"{bcolors.OKBLUE}Linki giriniz: {bcolors.ENDC}")
-    select = int(input(f"{bcolors.OKBLUE}Listeyi çekmek için 1, indirmek için 2, özel üretim içn 3: {bcolors.ENDC}"))
-    if select == 1:
-        # try:
-        #     os.mkdir(f"{filename}/")
-        #     folder_name = f"{filename}/"
-        # except FileExistsError:
-        #     folder_name = f"{filename}/"
-            
-        scrapper = M3U8Scrapper(linkofseries)
-        
-        episode_links = scrapper.getListSpecial()
-        epi_list = episode_links[1]
-        scrapper.getM3U8Links(episode_links[0], epi_list)
-        os.remove(f"{filename}_Links.txt")
-        os.remove(f"{filename}_Names.txt")
+bot.run()
