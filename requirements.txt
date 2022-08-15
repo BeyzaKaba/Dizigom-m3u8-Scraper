@@ -1,0 +1,8 @@
+requests
+pyrogram==1.4.16
+TgCrypto
+python-dotenv
+hachoir
+Pillow
+hyper
+ffmpeg-python
