@@ -1,4 +1,4 @@
-import re
+from os import environ 
 from select import select
 import requests
 from bs4 import BeautifulSoup
