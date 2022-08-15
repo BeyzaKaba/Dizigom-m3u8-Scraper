@@ -10,20 +10,6 @@ links = []
 episode_m3u8_links = []
 failed_links = []
 episode_names = []
-
-class bcolors: #If it is not working, please remove bcolors and variables
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    MIDDLELINE = '\033[9m'
-    OKGRAY = '\033[2m'
-    ITALIC = '\033[3m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
     
 class M3U8Scrapper:
     def __init__(self,url):
@@ -40,7 +26,7 @@ class M3U8Scrapper:
             counter_epi = 1
             for episode in range(1,episode_counter+1):
                 episode_name = f'{filename} {counter}. Sezon {episode}. Bölüm'
-                episode_link = f"https://dizipal306.com/bolum/{name_series}-{counter}x{counter_epi}-izle/"
+                episode_link = f"https://www.dizigom1.com/{name_series}-{counter}-sezon-{counter_epi}-bolum/"
                 epis.append(episode_name)
                 links.append(episode_link)
                 counter_epi += 1
