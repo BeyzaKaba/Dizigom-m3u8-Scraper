@@ -46,7 +46,7 @@ class M3U8Scrapper:
         """Verilen url'deki dizileri listelemek için kullanılır.
         
         Parametreler: 
-        • url(str): dizipal diziler urlsi
+        • url(str): diizgom diziler urlsi
         
         Örnek Kullanım:
         
@@ -138,7 +138,7 @@ class M3U8Scrapper:
                 
             episode_m3u8_links.append(episode_link)
             
-            print(f"{bcolors.ITALIC}{bcolors.WARNING}Çekilen Bölüm:{bcolors.ENDC} {episode_name}")
+            message= await bot.send_message(chat_id, f"Çekilen Bölüm: {episode_name}") 
             if i == len(link_list)-1:
                 break
             else:
@@ -146,9 +146,9 @@ class M3U8Scrapper:
                 
         os.system("cls")
         if not failed_links:
-            print(f"{bcolors.OKGREEN}İşlem tamamlandı.\nÇekilen Dizi: {bcolors.ENDC}{filename}\n{bcolors.OKGREEN}Bölüm sayısı:{bcolors.ENDC} {len(episode_m3u8_links)}\n{bcolors.WARNING}Hatalı Link(ler):{bcolors.ENDC} Yok")
+            await bot.send_message(chat_id, f"İşlem tamamlandı.\nÇekilen Dizi: {filename}\nBölüm sayısı: {len(episode_m3u8_links)}\nHatalı Link(ler): Yok")
         else:
-            print(f"{bcolors.OKGREEN}İşlem tamamlandı.\nÇekilen Dizi:{bcolors.ENDC} {filename}\n{bcolors.OKGREEN}Bölüm sayısı:{bcolors.ENDC} {len(episode_m3u8_links)}\n{bcolors.WARNING}Hatalı Link(ler):{bcolors.ENDC} {failed_links}") 
+            await bot.send_message(chat_id, f"İşlem tamamlandı.\nÇekilen Dizi: {filename}\nBölüm sayısı: {len(episode_m3u8_links)}\nHatalı Link(ler): {failed_links}") 
         return episode_m3u8_links
 
     def getVideos(self, series_name): 
@@ -184,22 +184,3 @@ if __name__ == "__main__":
         scrapper.getM3U8Links(episode_links[0], epi_list)
         os.remove(f"{filename}_Links.txt")
         os.remove(f"{filename}_Names.txt")
-            
-    elif select == 2:
-        try:
-            os.mkdir(f"{filename}/")
-            folder_name = f"{filename}/"
-        except FileExistsError:
-            folder_name = f"{filename}/"
-            
-        scrapper = M3U8Scrapper(linkofseries)
-        
-        episode_links = scrapper.getEpisodes(linkofseries)
-        epi_list = episode_links[1]
-        scrapper.getM3U8Links(episode_links[0], epi_list)    
-        scrapper.getVideos(filename)
-    elif select == 3:
-        scrapper = M3U8Scrapper(linkofseries)
-        scrapper.getListSpecial()
-    else:
-        print(f"{bcolors.FAIL}Geçersiz seçim.{bcolors.ENDC}")
